@@ -2273,6 +2273,24 @@ def API_getConfigurationInfo():
         "configurationRestrictedPeers": WireguardConfigurations[configurationName].getRestrictedPeersList()
     })
 
+@app.get(f'{APP_PREFIX}/api/getPeerInfo/<configName>/<peerId>')
+def API_getPeerInfo(configName, peerId):
+    if not configName or configName not in WireguardConfigurations.keys():
+        return ResponseObject(False, "Please provide configuration name")
+
+    peerList = WireguardConfigurations[configName].getPeersList()
+    peersMap = peers_to_map(peerList[peerId])
+    if not peerId or peerId not in peersMap.keys():
+        return ResponseObject(False, "Please provide present peer in " + configName + " configuration")
+    peer = peersMap[peerId]
+    return ResponseObject(data=peer)
+
+def peers_to_map(peer_list: list[Peer]):
+    map: dict[str, Peer] = {}
+    for peer in peer_list:
+        map[peer.id] = peer
+    return map
+
 @app.get(f'{APP_PREFIX}/api/getDashboardTheme')
 def API_getDashboardTheme():
     return ResponseObject(data=DashboardConfig.GetConfig("Server", "dashboard_theme")[1])
