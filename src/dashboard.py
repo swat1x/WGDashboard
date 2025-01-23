@@ -2279,7 +2279,7 @@ def API_getPeerInfo(configName, peerId):
         return ResponseObject(False, "Please provide configuration name")
 
     peerList = WireguardConfigurations[configName].getPeersList()
-    peersMap = peers_to_map(peerList[peerId])
+    peersMap = peers_to_map(peerList)
     if not peerId or peerId not in peersMap.keys():
         return ResponseObject(False, "Please provide present peer in " + configName + " configuration")
     peer = peersMap[peerId]
