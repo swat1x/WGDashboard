@@ -2401,8 +2401,9 @@ def API_getConfigurationInfo():
     })
 
 
-@app.get(f'{APP_PREFIX}/api/getPeerInfo/<configName>/<peerId>')
-def API_getPeerInfo(configName, peerId):
+@app.get(f'{APP_PREFIX}/api/getPeerInfo/<configName>')
+def API_getPeerInfo(configName):
+    peerId = request.args.get("peerId")
     if not configName or configName not in WireguardConfigurations.keys():
         return ResponseObject(False, "Please provide configuration name")
 
