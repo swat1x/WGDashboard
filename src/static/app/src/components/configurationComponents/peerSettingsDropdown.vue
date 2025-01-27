@@ -90,7 +90,7 @@ export default {
 		
 		<template v-if="!this.Peer.restricted">
 			<template v-if="!this.confirmDelete">
-				<template v-if="this.Peer.status === 'running'">
+				<template v-if="this.Peer.status === 'RUNNING'">
 					<li style="font-size: 0.8rem; padding-left: var(--bs-dropdown-item-padding-x); padding-right: var(--bs-dropdown-item-padding-x);">
 				<span class="text-body d-flex">
 						<i class="bi bi-box-arrow-in-right"></i>

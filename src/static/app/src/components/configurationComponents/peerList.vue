@@ -265,7 +265,7 @@ export default {
 	computed: {
 		configurationSummary(){
 			const k = {
-				connectedPeers: this.configurationPeers.filter(x => x.status === "running").length,
+				connectedPeers: this.configurationPeers.filter(x => x.status === "RUNNING").length,
 				totalUsage: this.configurationPeers.length > 0 ? 
 					this.configurationPeers.filter(x => !x.restricted)
 						.map(x => x.total_data + x.cumu_data).reduce((a, b) => a + b, 0).toFixed(4) : 0,
