@@ -29,6 +29,10 @@ export default {
         return this.Peer.latest_handshake.split(",")[0]
       }
       return this.Peer.latest_handshake;
+    },
+    getActiveStatus() {
+      console.log("Peer status of " + Peer.name + ": " + Peer.status)
+      return Peer.status === 'RUNNING'
     }
   }
 }
@@ -39,7 +43,7 @@ export default {
        :class="{'border-warning': Peer.restricted}">
     <div>
       <div v-if="!Peer.restricted" class="card-header bg-transparent d-flex align-items-center gap-2 border-0">
-        <div class="dot ms-0" :class="{active: Peer.status === 'RUNNING'}"></div>
+        <div class="dot ms-0" :class="{active: getActiveStatus }"></div>
         <div style="font-size: 0.8rem" class="ms-auto d-flex gap-2">
 					<span class="text-primary">
 						<i class="bi bi-arrow-down"></i><strong>
