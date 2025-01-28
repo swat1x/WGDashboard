@@ -962,11 +962,13 @@ class WireguardConfiguration:
             else:
                 status = "STOPPED"
             if int(latestHandshake[count + 1]) > 0:
-                sqlUpdate("UPDATE '%s' SET latest_handshake = ?, latest_handshake_unix = ?, status = ? WHERE id= ?" % self.Name
-                          , (str(minus).split(".", maxsplit=1)[0], latestHandshakeUnix, status, latestHandshake[count],))
+                sqlUpdate(
+                    "UPDATE '%s' SET latest_handshake = ?, latest_handshake_unix = ?, status = ? WHERE id= ?" % self.Name
+                    , (str(minus).split(".", maxsplit=1)[0], latestHandshakeUnix, status, latestHandshake[count],))
             else:
-                sqlUpdate("UPDATE '%s' SET latest_handshake = 'No Handshake', latest_handshake_unix = -1, status = ? WHERE id= ?" % self.Name
-                          , (status, latestHandshake[count],))
+                sqlUpdate(
+                    "UPDATE '%s' SET latest_handshake = 'No Handshake', latest_handshake_unix = -1, status = ? WHERE id= ?" % self.Name
+                    , (status, latestHandshake[count],))
             count += 2
 
     def getPeersTransfer(self):
@@ -2410,7 +2412,7 @@ def API_getPeerInfo(configName):
     peerList = WireguardConfigurations[configName].getPeersList()
     peersMap = peers_to_map(peerList)
     if not peerId or peerId not in peersMap.keys():
-        return ResponseObject(False, "Please provide present peer in " + configName + " configuration")
+        return ResponseObject(False, "Can't find an \"" + peerId + "\" in config " + configName)
     peer = peersMap[peerId]
     return ResponseObject(data=peer)
 
